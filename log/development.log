@@ -1,0 +1,874 @@
+Started GET "/" for ::1 at 2021-08-30 21:46:13 +1000
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (4.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+You have 2 pending migrations:
+
+20210830063220_create_users.rb
+20210830063756_add_username_to_user.rb
+
+
+):
+  
+activerecord (6.1.4.1) lib/active_record/migration.rb:625:in `check_pending!'
+activerecord (6.1.4.1) lib/active_record/migration.rb:590:in `block (2 levels) in call'
+activesupport (6.1.4.1) lib/active_support/evented_file_update_checker.rb:59:in `execute'
+activerecord (6.1.4.1) lib/active_record/migration.rb:595:in `block in call'
+activerecord (6.1.4.1) lib/active_record/migration.rb:587:in `synchronize'
+activerecord (6.1.4.1) lib/active_record/migration.rb:587:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.4.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.1.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.1.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.4.1) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.4.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.4.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.4.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.4.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.4.1) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.4.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.4.1) lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+rack-mini-profiler (2.3.3) lib/mini_profiler/profiler.rb:393:in `call'
+webpacker (5.4.2) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.7.0) lib/rack/proxy.rb:63:in `call'
+railties (6.1.4.1) lib/rails/engine.rb:539:in `call'
+puma (5.4.0) lib/puma/configuration.rb:249:in `call'
+puma (5.4.0) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.4.0) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.4.0) lib/puma/request.rb:76:in `handle_request'
+puma (5.4.0) lib/puma/server.rb:440:in `process_client'
+puma (5.4.0) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20210830063220)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "email" varchar NOT NULL, "encrypted_password" varchar(128) NOT NULL, "confirmation_token" varchar(128), "remember_token" varchar(128) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_users_on_remember_token" ON "users" ("remember_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210830063220"]]
+  [1m[36mTRANSACTION (5.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddUsernameToUser (20210830063756)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "username" varchar[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210830063756"]]
+  [1m[36mTRANSACTION (3.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-08-30 11:46:21.219408"], ["updated_at", "2021-08-30 11:46:21.219408"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for ::1 at 2021-08-30 21:46:23 +1000
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.11
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+warning ../../package.json: No license field
+warning ../../package.json: No license field
+error Command "webpack" not found.
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 611.0ms | Allocations: 3589)
+  Rendered layout layouts/application.html.erb (Duration: 611.3ms | Allocations: 3660)
+Completed 500 Internal Server Error in 620ms (ActiveRecord: 0.0ms | Allocations: 8473)
+
+
+  
+ActionView::Template::Error (Webpacker can't find index.js in /home/jim/projects/mafia/public/packs/manifest.json. Possible causes:
+1. You want to set webpacker.yml value of compile to true for your environment
+   unless you are using the `webpack -w` or the webpack-dev-server.
+2. webpack has not yet re-run to reflect updates.
+3. You have misconfigured Webpacker's config/webpacker.yml file.
+4. Your webpack configuration is not creating a manifest.
+Your manifest contains:
+{
+}
+):
+    1: <%= javascript_pack_tag 'index' %>
+  
+app/views/pages/index.html.erb:1
+Started GET "/" for ::1 at 2021-08-30 21:46:27 +1000
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.11
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+warning ../../package.json: No license field
+warning ../../package.json: No license field
+error Command "webpack" not found.
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 611.3ms | Allocations: 3940)
+  Rendered layout layouts/application.html.erb (Duration: 611.6ms | Allocations: 4015)
+Completed 500 Internal Server Error in 623ms (ActiveRecord: 0.0ms | Allocations: 9460)
+
+
+  
+ActionView::Template::Error (Webpacker can't find index.js in /home/jim/projects/mafia/public/packs/manifest.json. Possible causes:
+1. You want to set webpacker.yml value of compile to true for your environment
+   unless you are using the `webpack -w` or the webpack-dev-server.
+2. webpack has not yet re-run to reflect updates.
+3. You have misconfigured Webpacker's config/webpacker.yml file.
+4. Your webpack configuration is not creating a manifest.
+Your manifest contains:
+{
+}
+):
+    1: <%= javascript_pack_tag 'index' %>
+  
+app/views/pages/index.html.erb:1
+Started GET "/" for ::1 at 2021-08-30 21:46:29 +1000
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.11
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+warning ../../package.json: No license field
+warning ../../package.json: No license field
+error Command "webpack" not found.
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 593.5ms | Allocations: 3399)
+  Rendered layout layouts/application.html.erb (Duration: 593.7ms | Allocations: 3471)
+Completed 500 Internal Server Error in 597ms (ActiveRecord: 0.0ms | Allocations: 6541)
+
+
+  
+ActionView::Template::Error (Webpacker can't find index.js in /home/jim/projects/mafia/public/packs/manifest.json. Possible causes:
+1. You want to set webpacker.yml value of compile to true for your environment
+   unless you are using the `webpack -w` or the webpack-dev-server.
+2. webpack has not yet re-run to reflect updates.
+3. You have misconfigured Webpacker's config/webpacker.yml file.
+4. Your webpack configuration is not creating a manifest.
+Your manifest contains:
+{
+}
+):
+    1: <%= javascript_pack_tag 'index' %>
+  
+app/views/pages/index.html.erb:1
+Started GET "/" for ::1 at 2021-08-30 21:46:45 +1000
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.11
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+warning ../../package.json: No license field
+warning ../../package.json: No license field
+error Command "webpack" not found.
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 606.7ms | Allocations: 3945)
+  Rendered layout layouts/application.html.erb (Duration: 607.0ms | Allocations: 4020)
+Completed 500 Internal Server Error in 616ms (ActiveRecord: 0.0ms | Allocations: 9465)
+
+
+  
+ActionView::Template::Error (Webpacker can't find index.js in /home/jim/projects/mafia/public/packs/manifest.json. Possible causes:
+1. You want to set webpacker.yml value of compile to true for your environment
+   unless you are using the `webpack -w` or the webpack-dev-server.
+2. webpack has not yet re-run to reflect updates.
+3. You have misconfigured Webpacker's config/webpacker.yml file.
+4. Your webpack configuration is not creating a manifest.
+Your manifest contains:
+{
+}
+):
+    1: <%= javascript_pack_tag 'index' %>
+  
+app/views/pages/index.html.erb:1
+Started GET "/" for ::1 at 2021-08-30 21:48:18 +1000
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.11
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+warning ../../package.json: No license field
+warning ../../package.json: No license field
+error Command "webpack" not found.
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 608.3ms | Allocations: 3940)
+  Rendered layout layouts/application.html.erb (Duration: 608.6ms | Allocations: 4015)
+Completed 500 Internal Server Error in 626ms (ActiveRecord: 0.0ms | Allocations: 9460)
+
+
+  
+ActionView::Template::Error (Webpacker can't find index.js in /home/jim/projects/mafia/public/packs/manifest.json. Possible causes:
+1. You want to set webpacker.yml value of compile to true for your environment
+   unless you are using the `webpack -w` or the webpack-dev-server.
+2. webpack has not yet re-run to reflect updates.
+3. You have misconfigured Webpacker's config/webpacker.yml file.
+4. Your webpack configuration is not creating a manifest.
+Your manifest contains:
+{
+}
+):
+    1: <%= javascript_pack_tag 'index' %>
+  
+app/views/pages/index.html.erb:1
+Started GET "/" for ::1 at 2021-08-30 21:48:19 +1000
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.11
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+warning ../../package.json: No license field
+warning ../../package.json: No license field
+error Command "webpack" not found.
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 606.7ms | Allocations: 3396)
+  Rendered layout layouts/application.html.erb (Duration: 607.1ms | Allocations: 3468)
+Completed 500 Internal Server Error in 610ms (ActiveRecord: 0.0ms | Allocations: 6538)
+
+
+  
+ActionView::Template::Error (Webpacker can't find index.js in /home/jim/projects/mafia/public/packs/manifest.json. Possible causes:
+1. You want to set webpacker.yml value of compile to true for your environment
+   unless you are using the `webpack -w` or the webpack-dev-server.
+2. webpack has not yet re-run to reflect updates.
+3. You have misconfigured Webpacker's config/webpacker.yml file.
+4. Your webpack configuration is not creating a manifest.
+Your manifest contains:
+{
+}
+):
+    1: <%= javascript_pack_tag 'index' %>
+  
+app/views/pages/index.html.erb:1
+Started GET "/" for ::1 at 2021-08-30 21:48:43 +1000
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.11
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+warning ../../package.json: No license field
+warning ../../package.json: No license field
+error Command "webpack" not found.
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 610.1ms | Allocations: 3940)
+  Rendered layout layouts/application.html.erb (Duration: 610.3ms | Allocations: 4015)
+Completed 500 Internal Server Error in 621ms (ActiveRecord: 0.0ms | Allocations: 9460)
+
+
+  
+ActionView::Template::Error (Webpacker can't find index.js in /home/jim/projects/mafia/public/packs/manifest.json. Possible causes:
+1. You want to set webpacker.yml value of compile to true for your environment
+   unless you are using the `webpack -w` or the webpack-dev-server.
+2. webpack has not yet re-run to reflect updates.
+3. You have misconfigured Webpacker's config/webpacker.yml file.
+4. Your webpack configuration is not creating a manifest.
+Your manifest contains:
+{
+}
+):
+    1: <%= javascript_pack_tag 'index' %>
+  
+app/views/pages/index.html.erb:1
+Started GET "/" for ::1 at 2021-08-30 21:48:47 +1000
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+yarn run v1.22.11
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+
+
+warning ../../package.json: No license field
+warning ../../package.json: No license field
+error Command "webpack" not found.
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 607.3ms | Allocations: 3395)
+  Rendered layout layouts/application.html.erb (Duration: 607.6ms | Allocations: 3467)
+Completed 500 Internal Server Error in 609ms (ActiveRecord: 0.0ms | Allocations: 6537)
+
+
+  
+ActionView::Template::Error (Webpacker can't find index.js in /home/jim/projects/mafia/public/packs/manifest.json. Possible causes:
+1. You want to set webpacker.yml value of compile to true for your environment
+   unless you are using the `webpack -w` or the webpack-dev-server.
+2. webpack has not yet re-run to reflect updates.
+3. You have misconfigured Webpacker's config/webpacker.yml file.
+4. Your webpack configuration is not creating a manifest.
+Your manifest contains:
+{
+}
+):
+    1: <%= javascript_pack_tag 'index' %>
+  
+app/views/pages/index.html.erb:1
+Started GET "/" for ::1 at 2021-08-30 21:49:45 +1000
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+Hash: 881bada2b4ab323951aa
+Version: webpack 4.46.0
+Time: 1347ms
+Built at: 08/30/2021 9:49:47 PM
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-e421b4aa3f716bebdab1.js    125 KiB  application  [emitted] [immutable]  application
+js/application-e421b4aa3f716bebdab1.js.map    139 KiB  application  [emitted] [dev]        application
+          js/index-b4b99d723722422db143.js   7.68 KiB        index  [emitted] [immutable]  index
+      js/index-b4b99d723722422db143.js.map   3.51 KiB        index  [emitted] [dev]        index
+                             manifest.json  661 bytes               [emitted]              
+Entrypoint application = js/application-e421b4aa3f716bebdab1.js js/application-e421b4aa3f716bebdab1.js.map
+Entrypoint index = js/index-b4b99d723722422db143.js js/index-b4b99d723722422db143.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 492 bytes {application} [built]
+[./app/javascript/packs/index.js] 3.82 KiB {index} [built] [failed] [1 error]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+ERROR in ./app/javascript/packs/index.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /home/jim/projects/mafia/app/javascript/packs/index.js: Support for the experimental syntax 'jsx' isn't currently enabled (6:5):
+
+  4 | document.addEventListener('DOMContentLoaded', () => {
+  5 |   ReactDOM.render(
+> 6 |     <div>
+    |     ^
+  7 |       <h1>Hello World.</h1>
+  8 |     </div>,
+  9 |     document.body.appendChild(document.createElement('div')),
+
+Add @babel/preset-react (https://git.io/JfeDR) to the 'presets' section of your Babel config to enable transformation.
+If you want to leave it as-is, add @babel/plugin-syntax-jsx (https://git.io/vb4yA) to the 'plugins' section to enable parsing.
+    at Parser._raise (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:798:17)
+    at Parser.raiseWithData (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:791:17)
+    at Parser.expectOnePlugin (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:3272:18)
+    at Parser.parseExprAtom (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11514:20)
+    at Parser.parseExprSubscripts (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11081:23)
+    at Parser.parseUpdate (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11061:21)
+    at Parser.parseMaybeUnary (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11039:23)
+    at Parser.parseExprOps (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10882:23)
+    at Parser.parseMaybeConditional (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10856:23)
+    at Parser.parseMaybeAssign (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10814:21)
+    at /home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10776:39
+    at Parser.allowInAnd (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12595:12)
+    at Parser.parseMaybeAssignAllowIn (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10776:17)
+    at Parser.parseExprListItem (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12332:18)
+    at Parser.parseCallExpressionArguments (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11285:22)
+    at Parser.parseCoverCallAndAsyncArrowHead (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11192:29)
+    at Parser.parseSubscript (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11125:19)
+    at Parser.parseSubscripts (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11098:19)
+    at Parser.parseExprSubscripts (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11087:17)
+    at Parser.parseUpdate (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11061:21)
+    at Parser.parseMaybeUnary (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11039:23)
+    at Parser.parseExprOps (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10882:23)
+    at Parser.parseMaybeConditional (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10856:23)
+    at Parser.parseMaybeAssign (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10814:21)
+    at Parser.parseExpressionBase (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10754:23)
+    at /home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10748:39
+    at Parser.allowInAnd (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12595:12)
+    at Parser.parseExpression (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10748:17)
+    at Parser.parseStatementContent (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12927:23)
+    at Parser.parseStatement (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12796:17)
+
+
+warning ../../package.json: No license field
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 2335.5ms | Allocations: 2960)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 2389.2ms | Allocations: 21777)
+Completed 200 OK in 2399ms (Views: 2390.9ms | ActiveRecord: 0.0ms | Allocations: 27250)
+
+
+Started GET "/" for ::1 at 2021-08-30 21:50:07 +1000
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /home/jim/projects/mafia/public/packs
+[Webpacker] warning ../../package.json: No license field
+
+[Webpacker] Hash: e2a8a876c5815bee1e21
+Version: webpack 4.46.0
+Time: 522ms
+Built at: 08/30/2021 9:50:08 PM
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-e421b4aa3f716bebdab1.js    125 KiB  application  [emitted] [immutable]  application
+js/application-e421b4aa3f716bebdab1.js.map    139 KiB  application  [emitted] [dev]        application
+                             manifest.json  364 bytes               [emitted]              
+Entrypoint application = js/application-e421b4aa3f716bebdab1.js js/application-e421b4aa3f716bebdab1.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 492 bytes {application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 1438.8ms | Allocations: 4387)
+  Rendered layout layouts/application.html.erb (Duration: 1439.1ms | Allocations: 4458)
+Completed 500 Internal Server Error in 1440ms (ActiveRecord: 0.0ms | Allocations: 4824)
+
+
+  
+ActionView::Template::Error (Webpacker can't find index.js in /home/jim/projects/mafia/public/packs/manifest.json. Possible causes:
+1. You want to set webpacker.yml value of compile to true for your environment
+   unless you are using the `webpack -w` or the webpack-dev-server.
+2. webpack has not yet re-run to reflect updates.
+3. You have misconfigured Webpacker's config/webpacker.yml file.
+4. Your webpack configuration is not creating a manifest.
+Your manifest contains:
+{
+  "application.js": "/packs/js/application-e421b4aa3f716bebdab1.js",
+  "application.js.map": "/packs/js/application-e421b4aa3f716bebdab1.js.map",
+  "entrypoints": {
+    "application": {
+      "js": [
+        "/packs/js/application-e421b4aa3f716bebdab1.js"
+      ],
+      "js.map": [
+        "/packs/js/application-e421b4aa3f716bebdab1.js.map"
+      ]
+    }
+  }
+}
+):
+    1: <%= javascript_pack_tag 'index' %>
+  
+app/views/pages/index.html.erb:1
+Started GET "/" for ::1 at 2021-08-30 21:50:23 +1000
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+Hash: 881bada2b4ab323951aa
+Version: webpack 4.46.0
+Time: 574ms
+Built at: 08/30/2021 9:50:25 PM
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-e421b4aa3f716bebdab1.js    125 KiB  application  [emitted] [immutable]  application
+js/application-e421b4aa3f716bebdab1.js.map    139 KiB  application  [emitted] [dev]        application
+          js/index-b4b99d723722422db143.js   7.68 KiB        index  [emitted] [immutable]  index
+      js/index-b4b99d723722422db143.js.map   3.51 KiB        index  [emitted] [dev]        index
+                             manifest.json  661 bytes               [emitted]              
+Entrypoint application = js/application-e421b4aa3f716bebdab1.js js/application-e421b4aa3f716bebdab1.js.map
+Entrypoint index = js/index-b4b99d723722422db143.js js/index-b4b99d723722422db143.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 492 bytes {application} [built]
+[./app/javascript/packs/index.js] 3.82 KiB {index} [built] [failed] [1 error]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+ERROR in ./app/javascript/packs/index.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /home/jim/projects/mafia/app/javascript/packs/index.js: Support for the experimental syntax 'jsx' isn't currently enabled (6:5):
+
+  4 | document.addEventListener('DOMContentLoaded', () => {
+  5 |   ReactDOM.render(
+> 6 |     <div>
+    |     ^
+  7 |       <h1>Hello World.</h1>
+  8 |     </div>,
+  9 |     document.body.appendChild(document.createElement('div')),
+
+Add @babel/preset-react (https://git.io/JfeDR) to the 'presets' section of your Babel config to enable transformation.
+If you want to leave it as-is, add @babel/plugin-syntax-jsx (https://git.io/vb4yA) to the 'plugins' section to enable parsing.
+    at Parser._raise (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:798:17)
+    at Parser.raiseWithData (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:791:17)
+    at Parser.expectOnePlugin (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:3272:18)
+    at Parser.parseExprAtom (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11514:20)
+    at Parser.parseExprSubscripts (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11081:23)
+    at Parser.parseUpdate (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11061:21)
+    at Parser.parseMaybeUnary (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11039:23)
+    at Parser.parseExprOps (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10882:23)
+    at Parser.parseMaybeConditional (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10856:23)
+    at Parser.parseMaybeAssign (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10814:21)
+    at /home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10776:39
+    at Parser.allowInAnd (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12595:12)
+    at Parser.parseMaybeAssignAllowIn (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10776:17)
+    at Parser.parseExprListItem (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12332:18)
+    at Parser.parseCallExpressionArguments (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11285:22)
+    at Parser.parseCoverCallAndAsyncArrowHead (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11192:29)
+    at Parser.parseSubscript (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11125:19)
+    at Parser.parseSubscripts (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11098:19)
+    at Parser.parseExprSubscripts (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11087:17)
+    at Parser.parseUpdate (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11061:21)
+    at Parser.parseMaybeUnary (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11039:23)
+    at Parser.parseExprOps (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10882:23)
+    at Parser.parseMaybeConditional (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10856:23)
+    at Parser.parseMaybeAssign (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10814:21)
+    at Parser.parseExpressionBase (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10754:23)
+    at /home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10748:39
+    at Parser.allowInAnd (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12595:12)
+    at Parser.parseExpression (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10748:17)
+    at Parser.parseStatementContent (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12927:23)
+    at Parser.parseStatement (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12796:17)
+
+
+warning ../../package.json: No license field
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 1469.6ms | Allocations: 2874)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 1472.9ms | Allocations: 6016)
+Completed 200 OK in 1474ms (Views: 1473.4ms | ActiveRecord: 0.0ms | Allocations: 6488)
+
+
+Started GET "/" for ::1 at 2021-08-30 21:52:20 +1000
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+Hash: 700e61e70cb017da1635
+Version: webpack 4.46.0
+Time: 569ms
+Built at: 08/30/2021 9:52:22 PM
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-e421b4aa3f716bebdab1.js    125 KiB  application  [emitted] [immutable]  application
+js/application-e421b4aa3f716bebdab1.js.map    139 KiB  application  [emitted] [dev]        application
+          js/index-aae7d0af0d480f27c54e.js   7.62 KiB        index  [emitted] [immutable]  index
+      js/index-aae7d0af0d480f27c54e.js.map   3.51 KiB        index  [emitted] [dev]        index
+                             manifest.json  661 bytes               [emitted]              
+Entrypoint application = js/application-e421b4aa3f716bebdab1.js js/application-e421b4aa3f716bebdab1.js.map
+Entrypoint index = js/index-aae7d0af0d480f27c54e.js js/index-aae7d0af0d480f27c54e.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 492 bytes {application} [built]
+[./app/javascript/packs/index.js] 3.75 KiB {index} [built] [failed] [1 error]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+ERROR in ./app/javascript/packs/index.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /home/jim/projects/mafia/app/javascript/packs/index.js: Support for the experimental syntax 'jsx' isn't currently enabled (5:3):
+
+  3 |
+  4 | const Comp = props => (
+> 5 |   <div><h1>Hi</h1></div>
+    |   ^
+  6 | )
+  7 |
+  8 | document.addEventListener('DOMContentLoaded', () => {
+
+Add @babel/preset-react (https://git.io/JfeDR) to the 'presets' section of your Babel config to enable transformation.
+If you want to leave it as-is, add @babel/plugin-syntax-jsx (https://git.io/vb4yA) to the 'plugins' section to enable parsing.
+    at Parser._raise (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:798:17)
+    at Parser.raiseWithData (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:791:17)
+    at Parser.expectOnePlugin (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:3272:18)
+    at Parser.parseExprAtom (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11514:20)
+    at Parser.parseExprSubscripts (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11081:23)
+    at Parser.parseUpdate (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11061:21)
+    at Parser.parseMaybeUnary (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11039:23)
+    at Parser.parseExprOps (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10882:23)
+    at Parser.parseMaybeConditional (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10856:23)
+    at Parser.parseMaybeAssign (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10814:21)
+    at /home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10776:39
+    at Parser.allowInAnd (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12595:12)
+    at Parser.parseMaybeAssignAllowIn (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10776:17)
+    at Parser.parseParenAndDistinguishExpression (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11779:28)
+    at Parser.parseExprAtom (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11410:23)
+    at Parser.parseExprSubscripts (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11081:23)
+    at Parser.parseUpdate (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11061:21)
+    at Parser.parseMaybeUnary (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11039:23)
+    at Parser.parseExprOps (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10882:23)
+    at Parser.parseMaybeConditional (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10856:23)
+    at Parser.parseMaybeAssign (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10814:21)
+    at Parser.parseFunctionBody (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12238:24)
+    at Parser.parseArrowExpression (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12217:10)
+    at Parser.parseExprAtom (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11368:25)
+    at Parser.parseExprSubscripts (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11081:23)
+    at Parser.parseUpdate (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11061:21)
+    at Parser.parseMaybeUnary (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11039:23)
+    at Parser.parseExprOps (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10882:23)
+    at Parser.parseMaybeConditional (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10856:23)
+    at Parser.parseMaybeAssign (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10814:21)
+
+
+warning ../../package.json: No license field
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 1525.0ms | Allocations: 2823)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 1528.0ms | Allocations: 5821)
+Completed 200 OK in 1529ms (Views: 1528.4ms | ActiveRecord: 0.0ms | Allocations: 6202)
+
+
+Started GET "/" for ::1 at 2021-08-30 21:55:09 +1000
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compilation failed:
+Hash: fce30b663bd97cbb9c5e
+Version: webpack 4.46.0
+Time: 589ms
+Built at: 08/30/2021 9:55:11 PM
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-e421b4aa3f716bebdab1.js    125 KiB  application  [emitted] [immutable]  application
+js/application-e421b4aa3f716bebdab1.js.map    139 KiB  application  [emitted] [dev]        application
+          js/index-56675d6f692c278dc756.js   7.69 KiB        index  [emitted] [immutable]  index
+      js/index-56675d6f692c278dc756.js.map   3.51 KiB        index  [emitted] [dev]        index
+                             manifest.json  661 bytes               [emitted]              
+Entrypoint application = js/application-e421b4aa3f716bebdab1.js js/application-e421b4aa3f716bebdab1.js.map
+Entrypoint index = js/index-56675d6f692c278dc756.js js/index-56675d6f692c278dc756.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 492 bytes {application} [built]
+[./app/javascript/packs/index.js] 3.83 KiB {index} [built] [failed] [1 error]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 3 hidden modules
+
+ERROR in ./app/javascript/packs/index.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /home/jim/projects/mafia/app/javascript/packs/index.js: Support for the experimental syntax 'jsx' isn't currently enabled (8:5):
+
+   6 | document.addEventListener('DOMContentLoaded', () => {
+   7 |   ReactDOM.render(
+>  8 |     <div>
+     |     ^
+   9 |       <h1>Hello World.</h1>
+  10 |     </div>,
+  11 |     document.body.appendChild(document.createElement('div')),
+
+Add @babel/preset-react (https://git.io/JfeDR) to the 'presets' section of your Babel config to enable transformation.
+If you want to leave it as-is, add @babel/plugin-syntax-jsx (https://git.io/vb4yA) to the 'plugins' section to enable parsing.
+    at Parser._raise (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:798:17)
+    at Parser.raiseWithData (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:791:17)
+    at Parser.expectOnePlugin (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:3272:18)
+    at Parser.parseExprAtom (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11514:20)
+    at Parser.parseExprSubscripts (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11081:23)
+    at Parser.parseUpdate (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11061:21)
+    at Parser.parseMaybeUnary (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11039:23)
+    at Parser.parseExprOps (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10882:23)
+    at Parser.parseMaybeConditional (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10856:23)
+    at Parser.parseMaybeAssign (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10814:21)
+    at /home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10776:39
+    at Parser.allowInAnd (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12595:12)
+    at Parser.parseMaybeAssignAllowIn (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10776:17)
+    at Parser.parseExprListItem (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12332:18)
+    at Parser.parseCallExpressionArguments (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11285:22)
+    at Parser.parseCoverCallAndAsyncArrowHead (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11192:29)
+    at Parser.parseSubscript (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11125:19)
+    at Parser.parseSubscripts (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11098:19)
+    at Parser.parseExprSubscripts (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11087:17)
+    at Parser.parseUpdate (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11061:21)
+    at Parser.parseMaybeUnary (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:11039:23)
+    at Parser.parseExprOps (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10882:23)
+    at Parser.parseMaybeConditional (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10856:23)
+    at Parser.parseMaybeAssign (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10814:21)
+    at Parser.parseExpressionBase (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10754:23)
+    at /home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10748:39
+    at Parser.allowInAnd (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12595:12)
+    at Parser.parseExpression (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:10748:17)
+    at Parser.parseStatementContent (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12927:23)
+    at Parser.parseStatement (/home/jim/projects/mafia/node_modules/@babel/parser/lib/index.js:12796:17)
+
+
+warning ../../package.json: No license field
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 1519.3ms | Allocations: 2826)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 1522.4ms | Allocations: 5824)
+Completed 200 OK in 1524ms (Views: 1523.0ms | ActiveRecord: 0.0ms | Allocations: 6205)
+
+
+Started GET "/" for ::1 at 2021-08-30 21:56:03 +1000
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered pages/index.html.erb within layouts/application (Duration: 1.5ms | Allocations: 1710)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 4.5ms | Allocations: 4706)
+Completed 200 OK in 5ms (Views: 4.9ms | Allocations: 5084)
+
+
+Started GET "/" for ::1 at 2021-08-30 21:56:23 +1000
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered pages/index.html.erb within layouts/application (Duration: 1.5ms | Allocations: 1710)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 4.4ms | Allocations: 4707)
+Completed 200 OK in 5ms (Views: 4.8ms | Allocations: 5087)
+
+
+Started GET "/" for ::1 at 2021-08-30 21:57:32 +1000
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered pages/index.html.erb within layouts/application (Duration: 4.9ms | Allocations: 1953)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 17.6ms | Allocations: 7715)
+Completed 200 OK in 34ms (Views: 23.3ms | ActiveRecord: 0.0ms | Allocations: 11092)
+
+
+Started GET "/" for ::1 at 2021-08-30 21:57:53 +1000
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered pages/index.html.erb within layouts/application (Duration: 2.6ms | Allocations: 1953)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 14.9ms | Allocations: 7708)
+Completed 200 OK in 25ms (Views: 16.9ms | ActiveRecord: 0.0ms | Allocations: 10558)
+
+
+Started GET "/" for ::1 at 2021-08-30 22:00:31 +1000
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered pages/index.html.erb within layouts/application (Duration: 2.1ms | Allocations: 1953)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 7.7ms | Allocations: 7708)
+Completed 200 OK in 18ms (Views: 9.5ms | ActiveRecord: 0.0ms | Allocations: 10558)
+
+
+Started GET "/" for ::1 at 2021-08-30 22:01:02 +1000
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered pages/index.html.erb within layouts/application (Duration: 2.1ms | Allocations: 1953)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 8.5ms | Allocations: 7708)
+Completed 200 OK in 19ms (Views: 10.3ms | ActiveRecord: 0.0ms | Allocations: 10558)
+
+
+Started GET "/" for ::1 at 2021-08-30 22:01:25 +1000
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered pages/index.html.erb within layouts/application (Duration: 2.1ms | Allocations: 1953)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 8.9ms | Allocations: 7708)
+Completed 200 OK in 18ms (Views: 10.6ms | ActiveRecord: 0.0ms | Allocations: 10558)
+
+
+Started GET "/" for ::1 at 2021-08-30 22:02:09 +1000
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered pages/index.html.erb within layouts/application (Duration: 4.7ms | Allocations: 1953)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 19.5ms | Allocations: 7708)
+Completed 200 OK in 34ms (Views: 24.0ms | ActiveRecord: 0.0ms | Allocations: 10787)
+
+
+Started GET "/" for ::1 at 2021-08-30 22:02:46 +1000
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by PagesController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering pages/index.html.erb within layouts/application
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /home/jim/projects/mafia/public/packs
+[Webpacker] warning ../../package.json: No license field
+
+[Webpacker] Hash: df71119d6985078b86a8
+Version: webpack 4.46.0
+Time: 3482ms
+Built at: 08/30/2021 10:02:50 PM
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-e421b4aa3f716bebdab1.js    125 KiB  application  [emitted] [immutable]  application
+js/application-e421b4aa3f716bebdab1.js.map    139 KiB  application  [emitted] [dev]        application
+          js/index-c04740a4bafdc11c3c17.js   1.06 MiB        index  [emitted] [immutable]  index
+      js/index-c04740a4bafdc11c3c17.js.map   1.22 MiB        index  [emitted] [dev]        index
+                             manifest.json  661 bytes               [emitted]              
+Entrypoint application = js/application-e421b4aa3f716bebdab1.js js/application-e421b4aa3f716bebdab1.js.map
+Entrypoint index = js/index-c04740a4bafdc11c3c17.js js/index-c04740a4bafdc11c3c17.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 492 bytes {application} [built]
+[./app/javascript/packs/index.js] 330 bytes {index} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 552 bytes {application} [built]
+    + 12 hidden modules
+
+  Rendered pages/index.html.erb within layouts/application (Duration: 4418.8ms | Allocations: 3200)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 4424.9ms | Allocations: 8955)
+Completed 200 OK in 4437ms (Views: 4427.0ms | ActiveRecord: 0.0ms | Allocations: 11805)
+
+
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateSetups (20210830120916)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "setups" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20210830120916"]]
+  [1m[36mTRANSACTION (5.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
